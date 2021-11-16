@@ -15,16 +15,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(min = 2)
-    @NotEmpty
+    @Size(min = 2, message = "Min. 2 characters")
+    @NotEmpty(message = "Must not be empty")
     private String firstName;
 
-    @Size(min = 2)
-    @NotEmpty
+    @Size(min = 2, message = "Min. 2 characters")
+    @NotEmpty(message = "Must not be empty")
     private String lastName;
 
-    @Email(regexp = ".+@.+\\..+")
-    @NotEmpty
+    @Email(regexp = ".+@.+\\..+", message = "Not a valid email adress.")
+    @NotEmpty(message = "Must not be empty")
     private String email;
 
     private String phoneNumber;

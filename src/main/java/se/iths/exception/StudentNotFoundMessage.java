@@ -2,12 +2,16 @@ package se.iths.exception;
 
 import javax.json.bind.annotation.JsonbProperty;
 
-public class ErrorMessage {
-    private final Long id;
+public class StudentNotFoundMessage {
+    private Long id;
     private final String message;
 
-    public ErrorMessage(Long id, String message) {
+    public StudentNotFoundMessage(Long id, String message) {
         this.id = id;
+        this.message = message;
+    }
+
+    public StudentNotFoundMessage(String message) {
         this.message = message;
     }
 
