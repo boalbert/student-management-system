@@ -1,7 +1,7 @@
 # JAVA EE / JAX-RS - Labb
 ## Komplex Java - JU2020
 
-[TOC]
+
 
 ## Endpoints
 
