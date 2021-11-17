@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.List;
 
 @Path("students")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,9 +26,44 @@ public class StudentRest {
         this.studentService = studentService;
     }
 
+
+    @Path("{id}")
+    @GET
+    public Response get(@PathParam("id") Long id) {
+        var foundStudent = studentService.findById(id);
+        if (foundStudent != null)
+            return Response.ok(foundStudent).build();
+        throw new StudentNotFoundException(id);
+    }
+
+    @Path("")
+    @GET
+    public Response getAll() {
+        var all = studentService.getAll();
+
+        return Response.ok(all).build();
+    }
+
+    @Path("/find")
+    @GET
+    public Response getByLastName(@QueryParam("lastName") String lastName) {
+        var byLastName = studentService.findByLastName(lastName);
+
+        return Response.ok(byLastName).build();
+    }
+
+    @Path("{id}")
+    @DELETE
+    public Response delete(@PathParam("id") Long id) {
+        if (studentService.delete(id)) {
+            return Response.noContent().build();
+        }
+        throw new StudentNotFoundException(id);
+    }
+
     @Path("")
     @POST
-    public Response createStudent(Student student, @Context UriInfo uriInfo) {
+    public Response create(Student student, @Context UriInfo uriInfo) {
         studentService.createStudent(student);
         URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
         return Response.created(createdUri).build();
@@ -38,9 +72,9 @@ public class StudentRest {
 
     @Path("{id}")
     @PUT
-    public Response updateStudent(@Context UriInfo uriInfo, @PathParam("id") Long id, Student student) {
+    public Response update(@Context UriInfo uriInfo, @PathParam("id") Long id, Student student) {
 
-        if (studentService.updateStudent(id, student)) {
+        if (studentService.update(id, student)) {
             return Response.ok(student).build();
         } else {
             URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
@@ -50,46 +84,11 @@ public class StudentRest {
     }
 
     @Path("{id}")
-    @GET
-    public Response getStudent(@PathParam("id") Long id) {
-        var foundStudent = studentService.findById(id);
-        if (foundStudent != null)
-            return Response.ok(foundStudent).build();
-        throw new StudentNotFoundException(id);
-    }
-
-    @Path("")
-    @GET
-    public Response getAllStudents() {
-        var allStudents = studentService.getAll();
-
-        return Response.ok(allStudents).build();
-    }
-
-    @Path("/lastname")
-    @GET
-    public Response getByLastName(@QueryParam("lastName") String lastName) {
-        List<Student> byLastName = studentService.findByLastName(lastName);
-
-        return Response.ok(byLastName).build();
-    }
-
-    @Path("{id}")
-    @DELETE
-    public Response deleteStudent(@PathParam("id") Long id) {
-        if (studentService.delete(id)) {
-            return Response.noContent().build();
-        }
-        throw new StudentNotFoundException(id);
-    }
-
-    @Path("{id}")
     @PATCH
-    public Response updateEmail(@PathParam("id") Long id, @Valid StudentEmail studentEmail) {
+    public Response replace(@PathParam("id") Long id, @Valid StudentEmail studentEmail) {
         if (studentService.updateEmail(id, studentEmail)) {
             return Response.noContent().build();
         }
         throw new StudentNotFoundException(id);
     }
-
 }

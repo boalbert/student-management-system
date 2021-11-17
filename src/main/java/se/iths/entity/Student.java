@@ -1,14 +1,15 @@
 package se.iths.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
+@NamedQuery(
+        name = "Student.findByLastName",
+        query = "SELECT s FROM Student s WHERE s.lastName LIKE :lastName"
+)
 public class Student {
 
     @Id

@@ -1,6 +1,5 @@
 package se.iths.service;
 
-
 import se.iths.entity.Student;
 import se.iths.entity.StudentEmail;
 
@@ -36,26 +35,25 @@ public class StudentService {
         if (studentToDelete != null) {
             em.remove(studentToDelete);
             return true;
-        } else return false;
+        }
+        return false;
     }
 
-    public boolean updateStudent(Long id, Student updatedStudent) {
+    public boolean update(Long id, Student updatedStudent) {
         var studentToUpdate = findById(id);
         if (studentToUpdate != null) {
+            
             studentToUpdate.setEmail(updatedStudent.getEmail());
             studentToUpdate.setFirstName(updatedStudent.getFirstName());
             studentToUpdate.setLastName(updatedStudent.getLastName());
             studentToUpdate.setPhoneNumber(updatedStudent.getPhoneNumber());
+
             em.merge(studentToUpdate);
 
             return true;
         }
         em.persist(updatedStudent);
         return false;
-    }
-
-    public URI generateCreatedUri(UriInfo uriInfo, Long id) {
-        return uriInfo.getBaseUriBuilder().path(id.toString()).build();
     }
 
     public boolean updateEmail(Long id, StudentEmail studentEmail) {
@@ -69,8 +67,15 @@ public class StudentService {
     }
 
     public List<Student> findByLastName(String lastName) {
-        TypedQuery<Student> studentsBylastName
-                = em.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName", Student.class);
-        return studentsBylastName.setParameter("lastName", lastName).getResultList();
+        TypedQuery<Student> findByLastName =
+                em.createNamedQuery("Student.findByLastName", Student.class)
+                        .setParameter("lastName", lastName);
+
+        return findByLastName.getResultList();
     }
+
+    public URI generateCreatedUri(UriInfo uriInfo, Long id) {
+        return uriInfo.getBaseUriBuilder().path(id.toString()).build();
+    }
+
 }
