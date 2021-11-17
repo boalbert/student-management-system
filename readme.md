@@ -1,6 +1,7 @@
 # JAVA EE / JAX-RS - Labb
+## Komplex Java - JU2020
 
-______________
+[TOC]
 
 ## Endpoints
 
@@ -25,13 +26,14 @@ ______________
 
 
 
-
-
-* **** TODO ** GET - BY LASTNAME**
+* **GET - BY LASTNAME**
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/?lastName={lastname}
+/student-management-system/api/v1/students/search?lastName={lastName}
+
+// Example
+/student-management-system/api/v1/students/search?lastName=Persson
 
 // Response Code: 200 OK
 ```
@@ -53,6 +55,7 @@ ______________
 }
 
 // Response Code: 201 Created
+// Header - Location: .../student-management-system/api/v1/students/1
 ```
 
 
@@ -72,6 +75,8 @@ ______________
 }
 
 // Response Code: 200 OK / 201 Created
+// 201 Created: 
+	// Header - Location: .../student-management-system/api/v1/students/1
 ```
 
 
@@ -87,7 +92,7 @@ ______________
 	"email" : "andersson@email.com"
 }
 
-// Response Code: 204 No Content
+// Response Code: 200 OK 
 ```
 
 
@@ -146,22 +151,26 @@ private String email;
 [
   {
     "error message": "Must not be empty",
-    "property": "email"
-  },
-  {
-    "error message": "Must not be empty",
     "property": "firstName"
   },
   {
-    "error message": "Must not be empty",
+    "error message": "Not a valid email adress.",
+    "property": "email"
+  },
+  {
+    "error message": "Must be between 2 - 50 characters",
     "property": "lastName"
+  },
+  {
+    "error message": "Must be between 2 - 50 characters",
+    "property": "firstName"
   }
 ]
 ```
 
 
 
-## Instructions
+## Instructions / Instruktiner
 
 - [x] Forka startprojekt från https: //github.com/pontusredig-alten/student-management-system
 - CRUD-funktionalitet ska implementeras

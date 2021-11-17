@@ -1,4 +1,4 @@
-package se.iths.exception;
+package se.boalbert.exception;
 
 import javax.json.bind.annotation.JsonbProperty;
 

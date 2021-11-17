@@ -1,7 +1,7 @@
-package se.iths.service;
+package se.boalbert.service;
 
-import se.iths.entity.Student;
-import se.iths.entity.StudentEmail;
+import se.boalbert.entity.Student;
+import se.boalbert.entity.StudentEmail;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,7 +42,7 @@ public class StudentService {
     public boolean update(Long id, Student updatedStudent) {
         var studentToUpdate = findById(id);
         if (studentToUpdate != null) {
-            
+
             studentToUpdate.setEmail(updatedStudent.getEmail());
             studentToUpdate.setFirstName(updatedStudent.getFirstName());
             studentToUpdate.setLastName(updatedStudent.getLastName());
@@ -56,7 +56,7 @@ public class StudentService {
         return false;
     }
 
-    public boolean updateEmail(Long id, StudentEmail studentEmail) {
+    public boolean replaceEmail(Long id, StudentEmail studentEmail) {
         var updateStudentEmail = findById(id);
         if (updateStudentEmail != null) {
             updateStudentEmail.setEmail(studentEmail.getEmail());
@@ -75,7 +75,7 @@ public class StudentService {
     }
 
     public URI generateCreatedUri(UriInfo uriInfo, Long id) {
-        return uriInfo.getBaseUriBuilder().path(id.toString()).build();
+        return uriInfo.getBaseUriBuilder().path("students/" + id.toString()).build();
     }
 
 }

@@ -1,9 +1,9 @@
-package se.iths.rest;
+package se.boalbert.rest;
 
-import se.iths.entity.Student;
-import se.iths.entity.StudentEmail;
-import se.iths.exception.StudentNotFoundException;
-import se.iths.service.StudentService;
+import se.boalbert.entity.Student;
+import se.boalbert.entity.StudentEmail;
+import se.boalbert.exception.StudentNotFoundException;
+import se.boalbert.service.StudentService;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -33,6 +33,7 @@ public class StudentRest {
         var foundStudent = studentService.findById(id);
         if (foundStudent != null)
             return Response.ok(foundStudent).build();
+
         throw new StudentNotFoundException(id);
     }
 
@@ -40,24 +41,22 @@ public class StudentRest {
     @GET
     public Response getAll() {
         var all = studentService.getAll();
-
         return Response.ok(all).build();
     }
 
-    @Path("/find")
+    @Path("/search")
     @GET
     public Response getByLastName(@QueryParam("lastName") String lastName) {
         var byLastName = studentService.findByLastName(lastName);
-
         return Response.ok(byLastName).build();
     }
 
     @Path("{id}")
     @DELETE
     public Response delete(@PathParam("id") Long id) {
-        if (studentService.delete(id)) {
+        if (studentService.delete(id))
             return Response.noContent().build();
-        }
+
         throw new StudentNotFoundException(id);
     }
 
@@ -66,29 +65,26 @@ public class StudentRest {
     public Response create(Student student, @Context UriInfo uriInfo) {
         studentService.createStudent(student);
         URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
-        return Response.created(createdUri).build();
+        return Response.created(createdUri).entity(student).build();
     }
 
 
     @Path("{id}")
     @PUT
     public Response update(@Context UriInfo uriInfo, @PathParam("id") Long id, Student student) {
-
-        if (studentService.update(id, student)) {
+        if (studentService.update(id, student))
             return Response.ok(student).build();
-        } else {
-            URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
-            return Response.created(createdUri).build();
-        }
 
+        URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
+        return Response.created(createdUri).entity(student).build();
     }
 
     @Path("{id}")
     @PATCH
-    public Response replace(@PathParam("id") Long id, @Valid StudentEmail studentEmail) {
-        if (studentService.updateEmail(id, studentEmail)) {
-            return Response.noContent().build();
-        }
+    public Response updateEmail(@PathParam("id") Long id, @Valid StudentEmail studentEmail) {
+        if (studentService.replaceEmail(id, studentEmail))
+            return Response.ok(studentEmail).build();
+
         throw new StudentNotFoundException(id);
     }
 }

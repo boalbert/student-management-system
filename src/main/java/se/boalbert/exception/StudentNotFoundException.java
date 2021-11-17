@@ -1,4 +1,4 @@
-package se.iths.exception;
+package se.boalbert.exception;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;

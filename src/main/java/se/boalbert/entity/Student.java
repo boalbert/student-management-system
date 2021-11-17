@@ -1,4 +1,4 @@
-package se.iths.entity;
+package se.boalbert.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQuery(
         name = "Student.findByLastName",
-        query = "SELECT s FROM Student s WHERE s.lastName LIKE :lastName"
+        query = "SELECT s FROM Student s WHERE s.lastName = :lastName"
 )
 public class Student {
 
@@ -16,11 +16,11 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(min = 2, message = "Min. 2 characters")
+    @Size(min = 2, max = 50, message = "Must be between 2 - 50 characters")
     @NotEmpty(message = "Must not be empty")
     private String firstName;
 
-    @Size(min = 2, message = "Min. 2 characters")
+    @Size(min = 2, max = 50, message = "Must be between 2 - 50 characters")
     @NotEmpty(message = "Must not be empty")
     private String lastName;
 

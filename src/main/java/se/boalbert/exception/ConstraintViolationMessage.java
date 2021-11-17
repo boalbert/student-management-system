@@ -1,12 +1,11 @@
-package se.iths.exception;
+package se.boalbert.exception;
 
 import javax.json.bind.annotation.JsonbProperty;
 
-public class ConstraintValidationMessage {
+public class ConstraintViolationMessage {
     private String property;
     private String message;
 
-    @JsonbProperty("property")
     public String getProperty() {
         return property;
     }

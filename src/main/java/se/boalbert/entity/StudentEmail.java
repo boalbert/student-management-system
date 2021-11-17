@@ -1,4 +1,4 @@
-package se.iths.entity;
+package se.boalbert.entity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
