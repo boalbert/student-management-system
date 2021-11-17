@@ -9,7 +9,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/{id}
+/api/v1/students/{id}
 
 // Response Code: 200 OK
 ```
@@ -19,7 +19,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/
+/api/v1/students/
 
 // Response Code: 200 OK
 ```
@@ -30,10 +30,10 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/search?lastName={lastName}
+/api/v1/students/search?lastName={lastName}
 
 // Example
-/student-management-system/api/v1/students/search?lastName=Persson
+/api/v1/students/search?lastName=Persson
 
 // Response Code: 200 OK
 ```
@@ -44,7 +44,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students
+/api/v1/students
 
 // Body
 {
@@ -64,7 +64,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/{id}
+/api/v1/students/{id}
 
 // Body
 {
@@ -85,7 +85,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/{id}
+/api/v1/students/{id}
 
 // Body
 {
@@ -101,7 +101,7 @@
 
 ```java
 // Endpoint
-/student-management-system/api/v1/students/{id}
+/api/v1/students/{id}
 
 // Response Code: 204 No content
 ```
