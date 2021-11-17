@@ -6,6 +6,7 @@ import se.iths.exception.StudentNotFoundException;
 import se.iths.service.StudentService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +30,6 @@ public class StudentRest {
     @Path("")
     @POST
     public Response createStudent(Student student, @Context UriInfo uriInfo) {
-//        studentService.validateStudent(student);
         studentService.createStudent(student);
         URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
         return Response.created(createdUri).build();
@@ -39,7 +39,6 @@ public class StudentRest {
     @Path("{id}")
     @PUT
     public Response updateStudent(@Context UriInfo uriInfo, @PathParam("id") Long id, Student student) {
-//        studentService.validateStudent(student);
 
         if (studentService.updateStudent(id, student)) {
             return Response.ok(student).build();
@@ -86,8 +85,8 @@ public class StudentRest {
 
     @Path("{id}")
     @PATCH
-    public Response updateEmail(@PathParam("id") Long id, StudentEmail studentEmail) {
-        if (studentService.updateEmail(id, studentEmail.email)) {
+    public Response updateEmail(@PathParam("id") Long id, @Valid StudentEmail studentEmail) {
+        if (studentService.updateEmail(id, studentEmail)) {
             return Response.noContent().build();
         }
         throw new StudentNotFoundException(id);

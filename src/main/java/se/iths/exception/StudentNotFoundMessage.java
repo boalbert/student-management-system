@@ -15,12 +15,12 @@ public class StudentNotFoundMessage {
         this.message = message;
     }
 
-    @JsonbProperty("Student ID")
+    @JsonbProperty("student id")
     public Long getId() {
         return id;
     }
 
-    @JsonbProperty("Error Message")
+    @JsonbProperty("error message")
     public String getMessage() {
         return message;
     }

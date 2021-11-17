@@ -16,7 +16,7 @@ public class ConstraintViolationExceptionMapper
     @Override
     public Response toResponse(ConstraintViolationException exception) {
 
-        List<ConstraintValidationError> errors = exception.getConstraintViolations().stream()
+        List<ConstraintValidationMessage> errors = exception.getConstraintViolations().stream()
                 .map(this::toValidationError)
                 .collect(Collectors.toList());
 
@@ -24,9 +24,9 @@ public class ConstraintViolationExceptionMapper
                 .type(MediaType.APPLICATION_JSON).build();
     }
 
-    private ConstraintValidationError toValidationError(ConstraintViolation constraintViolation) {
-        ConstraintValidationError error = new ConstraintValidationError();
-        error.setPath(constraintViolation.getPropertyPath().toString());
+    private ConstraintValidationMessage toValidationError(ConstraintViolation constraintViolation) {
+        ConstraintValidationMessage error = new ConstraintValidationMessage();
+        error.setProperty(constraintViolation.getPropertyPath().toString());
         error.setMessage(constraintViolation.getMessage());
         return error;
     }

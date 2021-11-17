@@ -2,6 +2,7 @@ package se.iths.service;
 
 
 import se.iths.entity.Student;
+import se.iths.entity.StudentEmail;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -57,10 +58,10 @@ public class StudentService {
         return uriInfo.getBaseUriBuilder().path(id.toString()).build();
     }
 
-    public boolean updateEmail(Long id, String email) {
+    public boolean updateEmail(Long id, StudentEmail studentEmail) {
         var updateStudentEmail = findById(id);
         if (updateStudentEmail != null) {
-            updateStudentEmail.setEmail(email);
+            updateStudentEmail.setEmail(studentEmail.getEmail());
             em.merge(updateStudentEmail);
             return true;
         }
@@ -69,7 +70,7 @@ public class StudentService {
 
     public List<Student> findByLastName(String lastName) {
         TypedQuery<Student> studentsBylastName
-                = em.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName", Student.class).setParameter("lastName", lastName);
-        return studentsBylastName.getResultList();
+                = em.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName", Student.class);
+        return studentsBylastName.setParameter("lastName", lastName).getResultList();
     }
 }
