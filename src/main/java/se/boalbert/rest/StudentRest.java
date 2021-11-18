@@ -26,7 +26,6 @@ public class StudentRest {
         this.studentService = studentService;
     }
 
-
     @Path("{id}")
     @GET
     public Response get(@PathParam("id") Long id) {
@@ -67,7 +66,6 @@ public class StudentRest {
         URI createdUri = studentService.generateCreatedUri(uriInfo, student.getId());
         return Response.created(createdUri).entity(student).build();
     }
-
 
     @Path("{id}")
     @PUT

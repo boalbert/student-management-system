@@ -77,5 +77,4 @@ public class StudentService {
     public URI generateCreatedUri(UriInfo uriInfo, Long id) {
         return uriInfo.getBaseUriBuilder().path("students/" + id.toString()).build();
     }
-
 }
