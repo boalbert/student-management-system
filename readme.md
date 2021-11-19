@@ -8,17 +8,17 @@
 * **GET - ONE** 
 
 ```java
-// Endpoint
 /api/v1/students/{id}
 
 // Response Code: 200 OK
 ```
 
 
+
+
 * **GET - ALL** 
 
 ```java
-// Endpoint
 /api/v1/students/
 
 // Response Code: 200 OK
@@ -29,10 +29,9 @@
 * **GET - BY LASTNAME**
 
 ```java
-// Endpoint
 /api/v1/students/search?lastName={lastName}
 
-// Example
+// Example, Query Parameter
 /api/v1/students/search?lastName=Persson
 
 // Response Code: 200 OK
@@ -43,7 +42,6 @@
 * **POST** 
 
 ```java
-// Endpoint
 /api/v1/students
 
 // Body
@@ -63,7 +61,6 @@
 * **PUT**
 
 ```java
-// Endpoint
 /api/v1/students/{id}
 
 // Body
@@ -84,7 +81,6 @@
 * **PATCH**
 
 ```java
-// Endpoint
 /api/v1/students/{id}
 
 // Body
@@ -100,7 +96,6 @@
 * **DELETE**
 
 ```java
-// Endpoint
 /api/v1/students/{id}
 
 // Response Code: 204 No content
@@ -129,10 +124,10 @@ private String email;
 ## Exceptions
 
 * **StudentNotFoundException** 
+  * GET, PATCH
+
 
 ```java
-// GET, PATCH
-
 // Response Code: 404 Not Found
 {
   "error message": "Student not found.",
@@ -143,10 +138,10 @@ private String email;
 
 
 * **ConstraintViolationException**
+  * POST, PUT, PATCH
+
 
 ```java
-// POST, PUT, PATCH
-
 // Response Code: 400 Bad Request
 [
   {
@@ -167,31 +162,3 @@ private String email;
   }
 ]
 ```
-
-
-
-## Instructions / Instruktiner
-
-- [x] Forka startprojekt från https: //github.com/pontusredig-alten/student-management-system
-- CRUD-funktionalitet ska implementeras
-    - [X] Create
-    - [X] Read
-    - [X] Update
-    - [X] Delete
-- [x] Data om en student ska kunna hämtas med efternamn som en Query Parameter
-- [x] När en ny student ska läggas till, är alla fält obligatoriska utom telefonnummer
-- [x] Anropen ska returnera meningsfulla Response Codes
-- [x] Skapa minst en egen exception
-- [x] Felhantering ska finnas för varje CRUD-metod, och felmeddelande ska returneras i JSON-format
-
-______________
-
-- Ni kan jobba i grupp om ni vill, max två personer per grupp.
-- Lämna in labben genom en länk till erat repository på GitHub / GitLab.
-- Jag kommer testa eran lösning med Insomnia, så skapa en README.md-fil i erat repository, där ni beskriver endpoints,
-  parametrar och JSON-bodies ser ut.
-- README.md-filen ska också innehålla kort beskrivning om vem som gjort vad (ifall ni jobbat i grupp), samt om ni stötte
-  på problem som ni inte förstod hur man ska lösa.
-- Konfigurationsfilerna ska ni inte behöva göra något med, utan det ska gå att koppla in Payara Server på samma sätt som
-  vi gjort tidigare i kursen.
-- Labbens sluttid är den 19/11 kl. 23:59.
