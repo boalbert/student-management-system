@@ -1,5 +1,6 @@
 package se.boalbert.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -32,13 +33,19 @@ public class Student {
 
     private String phoneNumber;
 
-    @ManyToMany
+    @JsonbTransient
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_courses",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private List<Subject> subjectList = new ArrayList<>();
+
+    public void addSubject(Subject subject) {
+        subjectList.add(subject);
+        subject.getStudentList().add(this);
+    }
 
     public List<Subject> getSubjectList() {
         return subjectList;

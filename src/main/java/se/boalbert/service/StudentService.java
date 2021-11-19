@@ -2,7 +2,10 @@ package se.boalbert.service;
 
 import se.boalbert.entity.Student;
 import se.boalbert.entity.StudentEmail;
+import se.boalbert.entity.Subject;
+import se.boalbert.exception.StudentNotFoundException;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -17,12 +20,19 @@ public class StudentService {
     @PersistenceContext
     EntityManager em;
 
+    @Inject
+    SubjectService subjectService;
+
     public void createStudent(Student student) {
         em.persist(student);
     }
 
     public Student findById(Long id) {
-        return em.find(Student.class, id);
+        Student foundStudent = em.find(Student.class, id);
+        if (foundStudent == null) {
+            throw new StudentNotFoundException(id);
+        }
+        return foundStudent;
     }
 
     public List<Student> getAll() {
@@ -54,6 +64,12 @@ public class StudentService {
         }
         em.persist(updatedStudent);
         return false;
+    }
+
+    public Student addSubjectToStudent(Student student, Subject subject) {
+        var foundSubject = subjectService.findSubject(subject.getName());
+        student.addSubject(foundSubject);
+        return em.merge(student);
     }
 
     public boolean replaceEmail(Long id, StudentEmail studentEmail) {

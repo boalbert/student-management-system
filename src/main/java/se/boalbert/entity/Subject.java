@@ -1,11 +1,11 @@
 package se.boalbert.entity;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "subject.findByName", query = "SELECT s FROM Subject s WHERE s.name = :name")
 public class Subject {
 
     @Id
@@ -16,10 +16,9 @@ public class Subject {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "subjectList")
+    @ManyToMany(mappedBy = "subjectList", cascade = CascadeType.ALL)
     private List<Student> studentList = new ArrayList<>();
 
-    @JsonbTransient
     public List<Student> getStudentList() {
         return studentList;
     }
