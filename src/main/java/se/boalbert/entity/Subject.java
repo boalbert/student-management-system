@@ -7,6 +7,12 @@ import java.util.List;
 @Entity
 @NamedQuery(name = "subject.findByName", query = "SELECT s FROM Subject s WHERE s.name = :name")
 public class Subject {
+    public Subject() {
+    }
+
+    public Subject(String name) {
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +24,17 @@ public class Subject {
 
     @ManyToMany(mappedBy = "subjectList", cascade = CascadeType.ALL)
     private List<Student> studentList = new ArrayList<>();
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    @ManyToOne
+    private Teacher teacher;
 
     public List<Student> getStudentList() {
         return studentList;

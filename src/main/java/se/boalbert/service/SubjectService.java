@@ -1,6 +1,5 @@
 package se.boalbert.service;
 
-
 import se.boalbert.entity.Subject;
 import se.boalbert.exception.SubjectNotFoundException;
 

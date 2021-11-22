@@ -15,6 +15,16 @@ import java.util.List;
 )
 public class Student {
 
+    public Student() {
+    }
+
+    public Student(String firstName, String lastName, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
