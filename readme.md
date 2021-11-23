@@ -1,11 +1,36 @@
 # JAVA EE / JAX-RS - Labb
+
 ## Komplex Java - JU2020
 
+## Endpoints (LAB 2)
 
+Exempeldata finns vid inlagt vid uppstart.
 
-## Endpoints
+* GET - ALL
 
-* **GET - ONE** 
+```java
+/api/v1/subjects
+
+// Response Code: 200 OK
+```
+
+* GET - BY NAME
+    * @Path("/search")
+    * @QueryParam("subject")
+
+```java
+/api/v1/subjects/search?subject=SubjectName
+
+// Example
+        /api/v1/subjects/search?subject=Rust
+
+//Response Code: 200 OK
+
+```
+
+## Endpoints (LAB 1)
+
+* **GET - ONE**
 
 ```java
 /api/v1/students/{id}
@@ -13,10 +38,7 @@
 // Response Code: 200 OK
 ```
 
-
-
-
-* **GET - ALL** 
+* **GET - ALL**
 
 ```java
 /api/v1/students/
@@ -24,39 +46,33 @@
 // Response Code: 200 OK
 ```
 
-
-
 * **GET - BY LASTNAME**
 
 ```java
 /api/v1/students/search?lastName={lastName}
 
 // Example, Query Parameter
-/api/v1/students/search?lastName=Persson
+        /api/v1/students/search?lastName=Persson
 
 // Response Code: 200 OK
 ```
 
-
-
-* **POST** 
+* **POST**
 
 ```java
 /api/v1/students
 
 // Body
-{
-	"firstName" : "Sara", 
-	"lastName" : "Persson", 
-	"email" : "sarap@email.com",
-	"phoneNumber" : "073548824"
-}
+        {
+        "firstName":"Sara",
+        "lastName":"Persson",
+        "email":"sarap@email.com",
+        "phoneNumber":"073548824"
+        }
 
 // Response Code: 201 Created
 // Header - Location: .../student-management-system/api/v1/students/1
 ```
-
-
 
 * **PUT**
 
@@ -64,19 +80,17 @@
 /api/v1/students/{id}
 
 // Body
-{
-	"firstName" : "Sara",
-	"lastName" : "Andersson",
-	"email" : "saraandersson@email.com",
-	"phoneNumber" : "073548824"
-}
+        {
+        "firstName":"Sara",
+        "lastName":"Andersson",
+        "email":"saraandersson@email.com",
+        "phoneNumber":"073548824"
+        }
 
 // Response Code: 200 OK / 201 Created
 // 201 Created: 
-	// Header - Location: .../student-management-system/api/v1/students/1
+// Header - Location: .../student-management-system/api/v1/students/1
 ```
-
-
 
 * **PATCH**
 
@@ -84,14 +98,12 @@
 /api/v1/students/{id}
 
 // Body
-{
-	"email" : "andersson@email.com"
-}
+        {
+        "email":"andersson@email.com"
+        }
 
 // Response Code: 200 OK 
 ```
-
-
 
 * **DELETE**
 
@@ -100,8 +112,6 @@
 
 // Response Code: 204 No content
 ```
-
-
 
 ## Constraints
 
@@ -119,46 +129,40 @@ private String lastName;
 private String email;
 ```
 
-
-
 ## Exceptions
 
-* **StudentNotFoundException** 
-  * GET, PATCH
-
+* **StudentNotFoundException**
+    * GET, PATCH
 
 ```java
 // Response Code: 404 Not Found
 {
-  "error message": "Student not found.",
-  "student id": 99
-}
+        "error message":"Student not found.",
+        "student id":99
+        }
 ```
 
-
-
 * **ConstraintViolationException**
-  * POST, PUT, PATCH
-
+    * POST, PUT, PATCH
 
 ```java
 // Response Code: 400 Bad Request
 [
-  {
-    "error message": "Must not be empty",
-    "property": "firstName"
-  },
-  {
-    "error message": "Not a valid email adress.",
-    "property": "email"
-  },
-  {
-    "error message": "Must be between 2 - 50 characters",
-    "property": "lastName"
-  },
-  {
-    "error message": "Must be between 2 - 50 characters",
-    "property": "firstName"
-  }
-]
+        {
+        "error message":"Must not be empty",
+        "property":"firstName"
+        },
+        {
+        "error message":"Not a valid email adress.",
+        "property":"email"
+        },
+        {
+        "error message":"Must be between 2 - 50 characters",
+        "property":"lastName"
+        },
+        {
+        "error message":"Must be between 2 - 50 characters",
+        "property":"firstName"
+        }
+        ]
 ```
