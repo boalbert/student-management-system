@@ -30,7 +30,7 @@ public class SubjectRest {
     @Path("/search")
     @GET
     public Response getByName(@QueryParam("subject") String subjectName) {
-        var foundSubject = subjectService.findSubjecetByName(subjectName);
+        var foundSubject = subjectService.findSubjectByName(subjectName);
 
         return Response.ok(foundSubject).build();
     }

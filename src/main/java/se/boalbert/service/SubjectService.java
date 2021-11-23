@@ -20,7 +20,7 @@ public class SubjectService {
         return getAllSubjects.getResultList();
     }
 
-    public Subject findSubjecetByName(String subjectName) {
+    public Subject findSubjectByName(String subjectName) {
         TypedQuery<Subject> findSubject
                 = em.createNamedQuery("subject.findByName", Subject.class)
                 .setParameter("name", subjectName);
