@@ -1,6 +1,5 @@
 package se.boalbert.rest;
 
-import se.boalbert.entity.Subject;
 import se.boalbert.service.SubjectService;
 
 import javax.inject.Inject;
@@ -21,18 +20,18 @@ public class SubjectRest {
     }
 
     @Path("")
-    @POST
-    public Response create(Subject subject) {
-        subjectService.createSubject(subject);
-        return Response.ok(subject).build();
-    }
-
-    @Path("")
     @GET
     public Response getAll() {
-
         var all = subjectService.getAll();
 
         return Response.ok(all).build();
+    }
+
+    @Path("/search")
+    @GET
+    public Response getByName(@QueryParam("subject") String subjectName) {
+        var foundSubject = subjectService.findSubjecetByName(subjectName);
+
+        return Response.ok(foundSubject).build();
     }
 }

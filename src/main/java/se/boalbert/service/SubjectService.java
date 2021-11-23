@@ -15,16 +15,12 @@ public class SubjectService {
     @PersistenceContext
     EntityManager em;
 
-    public void createSubject(Subject subject) {
-        em.persist(subject);
-    }
-
     public List<Subject> getAll() {
         TypedQuery<Subject> getAllSubjects = em.createQuery("SELECT s from Subject s", Subject.class);
         return getAllSubjects.getResultList();
     }
 
-    public Subject findSubject(String subjectName) {
+    public Subject findSubjecetByName(String subjectName) {
         TypedQuery<Subject> findSubject
                 = em.createNamedQuery("subject.findByName", Subject.class)
                 .setParameter("name", subjectName);

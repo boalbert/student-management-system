@@ -47,8 +47,8 @@ public class Student {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_courses",
-            joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id")
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private List<Subject> subjectList = new ArrayList<>();
 

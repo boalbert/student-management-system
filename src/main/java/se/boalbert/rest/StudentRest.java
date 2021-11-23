@@ -2,10 +2,8 @@ package se.boalbert.rest;
 
 import se.boalbert.entity.Student;
 import se.boalbert.entity.StudentEmail;
-import se.boalbert.entity.Subject;
 import se.boalbert.exception.StudentNotFoundException;
 import se.boalbert.service.StudentService;
-import se.boalbert.service.SubjectService;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -22,12 +20,10 @@ import java.net.URI;
 public class StudentRest {
 
     private final StudentService studentService;
-    private final SubjectService subjectService;
 
     @Inject
-    public StudentRest(StudentService studentService, SubjectService subjectService) {
+    public StudentRest(StudentService studentService) {
         this.studentService = studentService;
-        this.subjectService = subjectService;
     }
 
     @Path("{id}")
@@ -85,14 +81,5 @@ public class StudentRest {
             return Response.ok(studentEmail).build();
 
         throw new StudentNotFoundException(id);
-    }
-
-    @Path("{id}/subjects")
-    @POST
-    public Response addSubject(@PathParam("id") Long studentId, Subject subject) {
-        var foundStudent = studentService.findById(studentId);
-        var updatedStudent = studentService.addSubjectToStudent(foundStudent, subject);
-        return Response.ok(updatedStudent).build();
-
     }
 }

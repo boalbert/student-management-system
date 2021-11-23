@@ -16,10 +16,8 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "subjectList", cascade = CascadeType.ALL)
